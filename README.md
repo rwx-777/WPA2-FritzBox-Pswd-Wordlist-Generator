@@ -4,6 +4,9 @@ This Script will produce all of the WPA2 Passwords used by various Router compan
 Usage:
 $ ./WordlistGenerator.perl > All16Nums-Wordlist.txt
 
+To Do:
+- FritzBox never have Passwords with three same Numbers after each other so we could reduce this
+
 Please feel free to help improve and lets try to get these Wordlists together. 
 
 Enjoy,
