@@ -5,5 +5,7 @@ Usage:
 $ ./WordlistGenerator.perl > All16Nums-Wordlist.txt
 
 Please feel free to help improve and lets try to get these Wordlists together. 
+
 Enjoy,
+
 rwx-777
