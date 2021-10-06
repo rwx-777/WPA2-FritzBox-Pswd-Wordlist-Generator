@@ -10,6 +10,7 @@ $ ./WordlistGenerator.perl > All16Nums-Wordlist.txt
 thanks to my good friend f4n0 we have a new script in python which now also checks for three consecutive numbers in the wordlist.
 ~~~
 $ python WordlistGenerator.py > Router-pswds.txt
+~~~
 
 ### DONE:
 - FritzBox never have Passwords with three same Numbers after each other so we could reduce this
