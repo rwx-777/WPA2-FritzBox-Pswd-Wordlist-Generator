@@ -2,6 +2,16 @@
 
 ## Architektur
 
+### Datei-Struktur
+
+```
+WordlistGenerator.py    → Python Implementation
+WordlistGenerator.perl   → Perl Implementation
+wlist/                  → Generated wordlists (fritz*.txt)
+```
+
+Beide Scripts verwenden die **gleiche Logik**, unterscheiden sich nur in der Sprache.
+
 ### WordlistGenerator.py
 
 **Hauptkomponenten:**
@@ -26,8 +36,27 @@ INVALID_PATTERN = r"(\d)\1{2,}" # Regex: 3+ identische Ziffern
 | Schreiben auf SSD | Dominant | Puffering |
 | Regex-Evaluierung | ~30% CPU-Zeit | - |
 
+### WordlistGenerator.perl
+
+**Hauptkomponenten:**
+
+```perl
+START = 1000000000000           # Erste Zahl
+END = 9999000000000000          # Letzte Zahl
+CHUNK_SIZE = 100000             # Passwörter pro Datei
+BUFFER_SIZE = 10000             # Zeilen pro Buffer-Flush
+INVALID_PATTERN = qr/(\d)\1{2,}/ # Regex (precompiled)
+```
+
+**Flow:**
+1. `get_resume_point()` → Findet letzte generierten Zahl
+2. `generate_passwords()` → Main Loop
+3. `add_to_buffer()` → Buffert Passwörter
+4. `flush_buffer()` → Schreibt in Dateien oder STDOUT
+
 ### Optimierungspotenziale
 
+**Python:**
 1. **Regex compilieren** ✅ (bereits done)
 2. **Generator statt Liste** ✅ (bereits done)
 3. **Buffering** ✅ (bereits done)
@@ -37,6 +66,17 @@ INVALID_PATTERN = r"(\d)\1{2,}" # Regex: 3+ identische Ziffern
    # Chunk Ranges aufteilen → 4 Worker → merge
    ```
 5. **NumPy/Numba** (für Regex-Loop)
+
+**Perl:**
+1. **Regex precompiling** ✅ (bereits done)
+2. **Buffer-Schreiben** ✅ (bereits done)
+3. **Append-Mode** ✅ (efficient)
+4. **Parallelisierung** (Perl Threads)
+   ```perl
+   # Zukünftig: use threads;
+   # Chunk Ranges aufteilen → 4 Threads
+   ```
+5. **XS-Module** (für Regex-Speed)
 
 ## Testing
 

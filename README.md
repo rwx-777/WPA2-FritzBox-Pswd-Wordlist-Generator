@@ -26,7 +26,7 @@ python3 -m pip install --upgrade pip  # optional
 
 ## Verwendung
 
-### Python (EMPFOHLEN)
+### Python
 ```bash
 # Generiere alle Passwörter in wlist/fritz*.txt
 python3 WordlistGenerator.py
@@ -36,16 +36,56 @@ python3 WordlistGenerator.py
 # [200,000] 1000060000000000
 # ...
 # ✓ Fertig! 3,695,000,000 Passwörter generiert.
+
+# Resume nach Unterbrechung
+python3 WordlistGenerator.py
 ```
 
 **Laufzeit**: ~2-3 Stunden (je nach Hardware)  
 **Speicherbedarf**: ~60 GB (nach Filterung)
 
-### Perl (veraltet)
+### Perl
 ```bash
-# ⚠️ Nur zu Referenzzwecken – Python-Version ist 10x schneller
-perl WordlistGenerator.perl > output.txt
+# Generiere alle Passwörter in wlist/fritz*.txt
+perl WordlistGenerator.perl
+
+# Mit Progress:
+# Starte bei: 1000000000000
+# Größenschätzung: ~3,7 Millionen Passwörter (nach Filter)
+# [100000] 1000030000000000
+# [200000] 1000060000000000
+# ...
+# ✓ Fertig! 3,695,000,000 Passwörter generiert.
+
+# Resume nach Unterbrechung
+perl WordlistGenerator.perl --resume
+
+# Pipe zu STDOUT
+perl WordlistGenerator.perl | head -100
+perl WordlistGenerator.perl | gzip > wordlist.txt.gz
 ```
+
+**Laufzeit**: ~1-2 Stunden (je nach Hardware)  
+**Speicherbedarf**: ~60 GB (nach Filterung)
+
+## Python vs. Perl
+
+Beide Scripts sind gleichwertig optimiert. Wähle je nach Vorliebe:
+
+| Feature | Python | Perl |
+|---------|--------|------|
+| **Laufzeit** | ~2-3 Std | ~1-2 Std |
+| **Speicher** | <100 MB | <100 MB |
+| **Code-Qualität** | Modern (type hints, f-strings) | Klassisch (robust) |
+| **Abhängigkeiten** | Nur Python 3.9+ | Nur Perl 5 |
+| **Resume-Funktion** | ✅ Automatisch | ✅ Flag: `--resume` |
+| **Pipe-Support** | ❌ Nur Datei-Output | ✅ STDOUT + Datei |
+| **Progress** | STDOUT | STDERR |
+
+**Empfehlung:**
+- **Linux/Mac-User**: Perl (schneller, mehr Kontrolle)
+- **Windows-User**: Python (bessere Portabilität)
+- **Anfänger**: Python (einfacher zu verstehen)
 
 ## Technik
 
