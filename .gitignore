@@ -1,0 +1,22 @@
+# Generated wordlists (large binary files)
+wlist/
+*.txt
+*.gz
+*.xz
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.env
