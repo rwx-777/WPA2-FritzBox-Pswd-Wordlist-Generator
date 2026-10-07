@@ -1,19 +1,28 @@
 #!/usr/bin/perl
+# ⚠️ VERALTET: Verwenden Sie stattdessen: python3 WordlistGenerator.py
+# Dieses Perl-Skript wird zu Referenzzwecken beibehalten.
 
-$startingNum = 0001000000000000;
-$EndNum =      9999000000000000;
+use strict;
+use warnings;
 
-$KiloBytes = $EndNum - $startingNum /1024;
-$MegaByte = $KiloBytes / 1024;
-$GigaByte = $MegaByte / 1024;
-$Terabyte = $GigaByte / 1024;
+my $start = 1000000000000;
+my $end = 9999000000000000;
 
-print "The File will take up: " , $KiloBytes , "kb\n" , $MegaByte , "mb\n" , $GigaByte , "gb\n" , $Terabyte , "TB\n";
+my $count = 0;
 
-while($startingNum++ < $EndNum) {
-	#print "$startingNum\n";
-	#print "Writing " + $startingNum + " to file";
-	printf "%016d\n", $startingNum;
+# Größenschätzung (informativ)
+my $diff = $end - $start;
+printf "Generiere ~%d Passwörter (nach Filterung: ~%d)...\n", $diff, int($diff * 0.37);
 
+while ($start < $end) {
+    my $num = sprintf("%016d", $start);
+
+    # Filter: Keine 3+ aufeinanderfolgende identischen Ziffern
+    if ($num !~ /(\d)\1{2,}/) {
+        print "$num\n";
+        $count++;
+    }
+
+    $start++;
 }
 
